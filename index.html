@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Neurona Rebelde - Suscripciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #6a1b9a; /* Violeta */
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #43a047; /* Verde */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        #thank-you-message {
+            color: #6a1b9a;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>La Neurona Rebelde - Suscripciones</h1>
+        <form id="subscription-form">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Número de Teléfono:</label>
+            <input type="tel" id="phone" name="phone" required>
+            
+            <label for="plan">Plan de Suscripción:</label>
+            <select id="plan" name="plan" required>
+                <option value="1000">Mínimo - 1000 ARS</option>
+                <option value="3000">Básico - 3000 ARS</option>
+                <option value="5000">Premium - 5000 ARS</option>
+                <option value="donacion">Donación Única</option>
+            </select>
+            
+            <div id="donation-amount" style="display: none;">
+                <label for="amount">Monto de la Donación:</label>
+                <input type="number" id="amount" name="amount">
+            </div>
+            
+            <button type="submit">Suscribirse</button>
+        </form>
+        <p id="thank-you-message" style="display: none;">Gracias por activar tu neurona rebelde</p>
+    </div>
+    
+    <script>
+        document.getElementById('plan').addEventListener('change', function() {
+            if (this.value === 'donacion') {
+                document.getElementById('donation-amount').style.display = 'block';
+            } else {
+                document.getElementById('donation-amount').style.display = 'none';
+            }
+        });
+
+        document.getElementById('subscription-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const plan = document.getElementById('plan').value;
+            let url = '';
+            
+            switch(plan) {
+                case '1000':
+                    url = 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848f9721c2018f9b555c340102';
+                    break;
+                case '3000':
+                    url = 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848f97219f018f9b633f580122';
+                    break;
+                case '5000':
+                    url = 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848f9721c2018f9b63f297010d';
+                    break;
+                case 'donacion':
+                    url = 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848f9721c2018f9b64e1e4010e';
+                    break;
+            }
+
+            window.location.href = url;
+            document.getElementById('thank-you-message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
